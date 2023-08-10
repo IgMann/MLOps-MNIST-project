@@ -5,7 +5,7 @@ from tensorflow.keras.datasets import mnist
 import json
 from task_duration import *
 
-def api_testing(sampes_number):
+def api_testing(samples_number):
     print(100 * '=')
     print("API TESTING")
     print(100 * '=')
@@ -39,14 +39,14 @@ def api_testing(sampes_number):
     x_test = x_test.astype("float32") / 255.0
 
     # Randomly select N samples from the test set
-    random_indices = np.random.choice(len(x_test), sampes_number, replace=False)
+    random_indices = np.random.choice(len(x_test), samples_number, replace=False)
     sample_images = x_test[random_indices]
     sample_labels = y_test[random_indices]
 
     # Convert the images to the appropriate format and send them to the API one by one
     classification_url = "http://127.0.0.1:5000/predict"
 
-    # Predictions agregator
+    # Predictions aggregator
     correct_predictions = 0
 
     print(100 * '-')
@@ -79,7 +79,7 @@ def api_testing(sampes_number):
         else:
             print(f"Error occurred while making the API request for Sample {i+1}.")
 
-    accuracy = (correct_predictions / sampes_number) * 100
+    accuracy = (correct_predictions / samples_number) * 100
 
     print(100 * '-')
     print(f"Accuracy: {accuracy:.2f}%")
