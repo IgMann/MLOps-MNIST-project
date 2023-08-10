@@ -50,13 +50,13 @@ def reload_model():
 
     if old_model_filename != newest_model_filename:
         print(100 * '-')
-        print(f"Model sucessfully upgraded!")
+        print(f"Model successfully upgraded!")
         print(f"Old model: {old_model_filename}")
         print(f"New model: {newest_model_filename}")
         print(100 * '-')
     else:
         print(100 * '-')
-        print(f"Model sucessfully reloaded!")
+        print(f"Model successfully reloaded!")
         print(100 * '-')
 
     return jsonify({"message": "Model reloaded successfully"}), 200
