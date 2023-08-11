@@ -1,6 +1,16 @@
 import time
 
-def task_duration(start_time, end_time):
+def task_duration(start_time: float, end_time: float) -> None:
+    """
+    Calculates the duration of a task given the start and end times.
+    
+    Parameters:
+    start_time (float): The start time of the task in seconds.
+    end_time (float): The end time of the task in seconds.
+    
+    Returns:
+    None: The function does not return anything. It prints the formatted duration of the task.
+    """
     elapsed_time = end_time - start_time
 
     hours = int(elapsed_time // 3600)

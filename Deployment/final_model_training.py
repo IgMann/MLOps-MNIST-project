@@ -1,9 +1,28 @@
 # Libraries loading
 import time
+import numpy as np
 from task_duration import *
 import tensorflow as tf
+from tensorflow.keras.models import Sequential
 
-def final_model_training(model, x_train, y_train, epochs, batch_size, validation_split):
+def final_model_training(model: Sequential, x_train: np.ndarray, 
+                        y_train: np.ndarray, epochs: int, batch_size: int, 
+                        validation_split: float) -> Sequential:
+    """
+    Trains a given model using the provided training data.
+
+    Args:
+        model: The model to be trained.
+        x_train: The input training data.
+        y_train: The target training data.
+        epochs: The number of epochs to train the model.
+        batch_size: The batch size for training.
+        validation_split: The validation split for training.
+
+    Returns:
+        The trained model.
+    """
+
     print(100 * '=')
     print("FINAL MODEL TRAINING")
     print(100 * '=')

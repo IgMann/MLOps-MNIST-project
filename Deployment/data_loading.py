@@ -1,9 +1,17 @@
 # Libraries loading
 import time
+from typing import Tuple
 from task_duration import *
 from keras.datasets import mnist
 
-def data_loading():
+def data_loading() -> Tuple[Tuple, Tuple]:
+    """
+    Load the MNIST dataset and print the shapes of the training and testing sets.
+
+    Returns:
+    Tuple: (x_train, y_train), (x_test, y_test) - The training and testing sets.
+    """
+
     print(100 * '=')
     print("DATA LOADING")
     print(100 * '=')
@@ -11,7 +19,7 @@ def data_loading():
     start_time = time.time()
 
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
-  
+
     print(100 * '-')
     print("Train and test set shapes:")
     print(100 * '-')

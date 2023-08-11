@@ -1,9 +1,22 @@
 # Libraries loading
 import time
+import numpy as np
 from task_duration import *
 import tensorflow as tf
+from tensorflow.keras.models import Sequential
 
-def final_model_evaluation(model, x_test, y_test):
+def final_model_evaluation(model: Sequential, x_test: np.ndarray, y_test: np.ndarray) -> None:
+    """
+    Evaluate the performance of a given model on a test dataset.
+
+    Args:
+        model: The model to be evaluated.
+        x_test: The test data.
+        y_test: The test labels.
+
+    Returns:
+        None
+    """
     print(100 * '=')
     print("FINAL MODEL EVALUATION")
     print(100 * '=')

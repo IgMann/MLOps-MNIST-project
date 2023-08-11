@@ -5,7 +5,16 @@ from tensorflow.keras.datasets import mnist
 import json
 from task_duration import *
 
-def api_testing(samples_number):
+def api_testing(samples_number: int) -> None:
+    """
+    Test an Flask API that performs image classification using a pre-trained model.
+
+    Args:
+        samples_number (int): The number of random samples to send for classification.
+
+    Returns:
+        None
+    """
     print(100 * '=')
     print("API TESTING")
     print(100 * '=')
@@ -13,7 +22,7 @@ def api_testing(samples_number):
     start_time = time.time()
 
     # Define the URL for the reload_model endpoint
-    reload_url = "http://localhost:5000/reload_model" 
+    reload_url = "http://localhost:5001/reload_model" 
 
     # Send a GET request to reload the model
     response = requests.get(reload_url)
@@ -44,7 +53,7 @@ def api_testing(samples_number):
     sample_labels = y_test[random_indices]
 
     # Convert the images to the appropriate format and send them to the API one by one
-    classification_url = "http://127.0.0.1:5000/predict"
+    classification_url = "http://127.0.0.1:5001/predict"
 
     # Predictions aggregator
     correct_predictions = 0

@@ -6,10 +6,15 @@ from flask import Flask, request, jsonify
 import numpy as np
 from tensorflow.keras.models import load_model
 
-def newest_model(path, model_name, format):
-    model_files = [filename for filename in os.listdir(path) if filename.endswith(f'.{format}')]
+"""
+This code snippet is a Flask application that serves as an API for predicting digits from images using a pre-trained machine learning model. 
+It has two routes: `/reload_model` to reload the model and `/predict` to make predictions.
+"""
+
+def newest_model(path: str, model_name: str, format: str) -> str:
+    model_files = [filename for filename in os.listdir(path) if filename.endswith(f".{format}")]
     
-    def get_datetime_from_filename(filename):
+    def get_datetime_from_filename(filename: str) -> datetime:
         timestamp = filename.split('_')[-1].split('.')[0]
         return datetime.strptime(timestamp, "%Y-%m-%d-%H-%M-%S")
 
@@ -19,30 +24,24 @@ def newest_model(path, model_name, format):
 
 app = Flask(__name__)
 
-# Load constants
 PATH = sys.argv[1]
 MODEL_NAME = sys.argv[2]
 FORMAT = sys.argv[3]
 
-# Load the trained model
 try:
     if flag:
         pass
-except:
+except NameError:
     flag = False
     global newest_model_filename
     newest_model_filename = newest_model(PATH, MODEL_NAME, FORMAT)
-    
-    global model
     model = load_model(f"{PATH}/{newest_model_filename}")
-
     print(100 * '-')
     print(f"Model {newest_model_filename} loaded")
     print(100 * '-')
 
-# API endpoint to reload the model
 @app.route("/reload_model", methods=["GET"])
-def reload_model():
+def reload_model() -> jsonify:
     global newest_model_filename
     old_model_filename = newest_model_filename
     newest_model_filename = newest_model(PATH, MODEL_NAME, FORMAT)
@@ -61,21 +60,16 @@ def reload_model():
 
     return jsonify({"message": "Model reloaded successfully"}), 200
 
-# API endpoint to predict the digit in the image
 @app.route("/predict", methods=["POST"])
-def predict_digit():
+def predict_digit() -> jsonify:
     if request.method == "POST":
-        # Get the JSON data from the request
         data = request.get_json()
-
-        # Extract and preprocess the image data
         image_data = np.array(data["image"]).reshape(28, 28, 1)
-
-        # Make the prediction
         prediction = model.predict(np.expand_dims(image_data, axis=0))
         predicted_digit = np.argmax(prediction[0])
 
         return jsonify({"predicted_digit": int(predicted_digit)}), 200
 
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5001)

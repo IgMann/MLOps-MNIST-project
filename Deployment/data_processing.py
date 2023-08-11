@@ -1,9 +1,25 @@
 # Libraries loading
 import time
+from typing import Tuple
+import numpy as np
 from task_duration import *
 from tensorflow.keras.utils import to_categorical
 
-def data_processing(train_set, test_set):
+def data_processing(train_set: Tuple[np.ndarray, np.ndarray], test_set: Tuple[np.ndarray, np.ndarray]) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """
+    Preprocesses the data by normalizing pixel values and performing one-hot encoding on the target labels.
+
+    Args:
+        train_set (Tuple[np.ndarray, np.ndarray]): A tuple containing the training images and labels.
+        test_set (Tuple[np.ndarray, np.ndarray]): A tuple containing the test images and labels.
+
+    Returns:
+        x_train (np.ndarray): The normalized training images 
+        x_test (np.ndarray): The normalized test images
+        y_train (np.ndarray):  one-hot encoded training labels
+        y_test (np.ndarray): one-hot encoded test labels
+    """
+
     print(100 * '=')
     print("DATA PROCESSING")
     print(100 * '=')
